@@ -20,7 +20,8 @@ import {
   DefaultTheme as NavigationDefaultTheme,
   DarkTheme as NavigationDarkTheme,
 } from "@react-navigation/native";
-import { createDrawerNavigator, DrawerContent } from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import {DrawerContent} from './components/DrawerContent';
 import {
   Header,
   LearnMoreLinks,
@@ -28,15 +29,28 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen";
-import SplashScreen from "./screens/SplashScreen";
 import RootStackScreen from "./screens/RootStackScreen";
+import MainTabScreen from "./screens/MainTabScreen";
+import MessagesScreen from "./screens/MessagesScreen";
 const Drawer = createDrawerNavigator();
 
 const App = () => {
+  let draw = true;
   return (
     <>
       <NavigationContainer>
+      {draw? (
+        <Drawer.Navigator
+          drawerContent={(props) => <DrawerContent {...props} />}
+        >
+          <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
+          <Drawer.Screen name="MessagesScreen" component={MessagesScreen} />
+        </Drawer.Navigator>
+      ): (
         <RootStackScreen />
+      )}
+        
+        
       </NavigationContainer>
     </>
   );
